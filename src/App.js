@@ -6,6 +6,7 @@ import Container from './components/Container/Container';
 import Contacts from './components/Contancts/Contacts';
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
+import Home from './components/Home/Home';
 import PageNotFound from './components/PageNotFound/PageNotFound';
 
 function App() {
@@ -15,7 +16,7 @@ function App() {
       <Container>
         <Banner />
         <Routes>
-          <Route exact path='/' element={<div>Homepage</div>}/>
+          <Route exact path='/' element={<Home />}/>
           <Route path='/catalog' element={<div>Catalog</div>}/>
           <Route path='/about' element={<About />}/>
           <Route path='/contacts' element={<Contacts />} />
