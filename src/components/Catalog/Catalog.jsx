@@ -1,7 +1,7 @@
 import Card from "../Card/Card";
 import "./Catalog.css"
 
-const Catalog = () => {
+const Catalog = ({items}) => {
     return (
         <section className="catalog">
             <h2 className="text-center">Каталог</h2>
@@ -23,12 +23,13 @@ const Catalog = () => {
               </li>
             </ul>
             <div className="row">
-                <Card catalog={true} />
-                <Card catalog={true} />
-                <Card catalog={true} />
-                <Card catalog={true} />
-                <Card catalog={true} />
-                <Card catalog={true} />
+                {items.map(item => 
+                  <Card 
+                    key={item.id}
+                    item={item}
+                    catalog={true}
+                  />
+                )}
             </div>
             <div className="text-center">
               <button className="btn btn-outline-primary">Загрузить ещё</button>
