@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import About from './components/About/About';
 import Banner from './components/Banner/Banner';
+import Catalog from './components/Catalog/Catalog';
 import Container from './components/Container/Container';
 import Contacts from './components/Contancts/Contacts';
 import Footer from './components/Footer/Footer';
@@ -17,7 +18,7 @@ function App() {
         <Banner />
         <Routes>
           <Route exact path='/' element={<Home />}/>
-          <Route path='/catalog' element={<div>Catalog</div>}/>
+          <Route path='/catalog' element={<Catalog />}/>
           <Route path='/about' element={<About />}/>
           <Route path='/contacts' element={<Contacts />} />
           <Route path='*' element={<PageNotFound />} />
