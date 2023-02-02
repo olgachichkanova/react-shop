@@ -9,10 +9,15 @@ import "./Catalog.css"
 
 const url = process.env.REACT_APP_BASE_URL;
 
-const Catalog = () => {
-  const { catalogItems, catalogItemsLoading, catalogItemsError} = useSelector(state => state.catalogItems)
+
+const Catalog = ({children}) => {
+  const { catalogItems, catalogItemsLoading, catalogItemsError, search} = useSelector(state => state.catalogItems)
   const [categories, setCategories] = useState([]);
   const dispatch = useDispatch();
+
+  const filterData = (items) => {
+    return items.filter(i => i.title.toLowerCase().includes(search.toLowerCase()))
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,36 +41,37 @@ const Catalog = () => {
 
     return (
       <>
-      {catalogItemsLoading && <Loader />}
-      {
-      catalogItemsError ? 
-      <div>Error: {catalogItemsError.message}</div>
-      :
-      <section className="catalog">
-      <h2 className="text-center">Каталог</h2>
-      <ul className="catalog-categories nav justify-content-center">
-      <NavLink className="nav-link" to={`/items`} onClick={(e) => handleClick(e, '')}>Все</NavLink>
-        {categories.map(item => <NavLink 
-            className="nav-link" 
-            key={item.id} 
-            to={`/items/${item.id}`} 
-            onClick={(e) => handleClick(e, item.id)}
-        >{item.title}</NavLink>)}
-      </ul>
-      <div className="row">
-          {catalogItems.map(item => 
-            <Card 
-              key={item.id}
-              item={item}
-              catalog={true}
-            />
-          )}
-      </div>
-      <div className="text-center">
-        <button className="btn btn-outline-primary">Загрузить ещё</button>
-      </div>
-      </section>
-      }
+        {catalogItemsLoading && <Loader />}
+        {
+          catalogItemsError ? 
+          <div>Error: {catalogItemsError.message}</div>
+          :
+          <section className="catalog">
+          <h2 className="text-center">Каталог</h2>
+          {children ? children : null}
+          <ul className="catalog-categories nav justify-content-center">
+          <NavLink className="nav-link" to={`/items`} onClick={(e) => handleClick(e, '')}>Все</NavLink>
+            {categories.map(item => <NavLink 
+                className="nav-link" 
+                key={item.id} 
+                to={`/items/${item.id}`} 
+                onClick={(e) => handleClick(e, item.id)}
+            >{item.title}</NavLink>)}
+          </ul>
+          <div className="row">
+              {filterData(catalogItems).map(item => 
+                <Card 
+                  key={item.id}
+                  item={item}
+                  catalog={true}
+                />
+              )}
+          </div>
+          <div className="text-center">
+            <button className="btn btn-outline-primary">Загрузить ещё</button>
+          </div>
+          </section>
+        }
       </>
         
     )

@@ -9,6 +9,7 @@ import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
 import Home from './components/Home/Home';
 import PageNotFound from './components/PageNotFound/PageNotFound';
+import Search from './components/Search/Search'
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
         <Banner />
         <Routes>
           <Route exact path='/' element={<Home />}/>
-          <Route path='/catalog' element={<Catalog />}/>
+          <Route path='/catalog' element={<Catalog><Search /></Catalog>}/>
           <Route path='/about' element={<About />}/>
           <Route path='/contacts' element={<Contacts />} />
           <Route path='*' element={<PageNotFound />} />

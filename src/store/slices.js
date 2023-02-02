@@ -30,7 +30,8 @@ const catalogItemsSlice = createSlice({
         catalogItems: [],
         catalogItemsLoading: false,
         catalogItemsError: null,
-        categoryId: ''
+        categoryId: '',
+        search: ''
     },
     reducers: {
         catalogItemsRequest(state, action) {
@@ -49,6 +50,10 @@ const catalogItemsSlice = createSlice({
         categoryIdSelect(state, action) {
             const id = action.payload;
             state.categoryId = id;
+        },
+        changeSearchField(state, action) {
+            const search = action.payload;
+            state.search = search;
         }
     }
 })
@@ -56,5 +61,5 @@ const catalogItemsSlice = createSlice({
 
 export const { topSalesRequest, topSalesSuccess, topSalesFailure } = topSalesSlice.actions;
 export const topSalesSliceReducer = topSalesSlice.reducer;
-export const { catalogItemsRequest, catalogItemsSuccess, catalogItemsFailure, categoryIdSelect } = catalogItemsSlice.actions;
+export const { catalogItemsRequest, catalogItemsSuccess, catalogItemsFailure, categoryIdSelect, changeSearchField } = catalogItemsSlice.actions;
 export const catalogItemsSliceReducer = catalogItemsSlice.reducer;
