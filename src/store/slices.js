@@ -31,7 +31,10 @@ const catalogItemsSlice = createSlice({
         catalogItemsLoading: false,
         catalogItemsError: null,
         categoryId: '',
-        search: ''
+        search: '',
+        offset: 0,
+        hasMore: true,
+        loadMoreLoading: false
     },
     reducers: {
         catalogItemsRequest(state, action) {
@@ -50,16 +53,42 @@ const catalogItemsSlice = createSlice({
         categoryIdSelect(state, action) {
             const id = action.payload;
             state.categoryId = id;
+            state.offset = 0;
+            state.hasMore = true;
         },
         changeSearchField(state, action) {
             const search = action.payload;
             state.search = search;
+        },
+        loadMoreRequest(state, action) {
+            state.loadMoreLoading = true
+            state.offset += 6;
+        },
+        loadMoreSuccess(state, action) {
+            const items = action.payload;
+            state.catalogItems = [...state.catalogItems, ...items];
+            state.loadMoreLoading = false;
+            if(items.length < 6) {
+                state.hasMore = false;
+            }
         }
     }
 })
 
 
-export const { topSalesRequest, topSalesSuccess, topSalesFailure } = topSalesSlice.actions;
+export const { 
+    topSalesRequest, 
+    topSalesSuccess, 
+    topSalesFailure 
+} = topSalesSlice.actions;
 export const topSalesSliceReducer = topSalesSlice.reducer;
-export const { catalogItemsRequest, catalogItemsSuccess, catalogItemsFailure, categoryIdSelect, changeSearchField } = catalogItemsSlice.actions;
+export const { 
+    catalogItemsRequest, 
+    catalogItemsSuccess, 
+    catalogItemsFailure, 
+    categoryIdSelect, 
+    changeSearchField, 
+    loadMoreRequest, 
+    loadMoreSuccess 
+} = catalogItemsSlice.actions;
 export const catalogItemsSliceReducer = catalogItemsSlice.reducer;

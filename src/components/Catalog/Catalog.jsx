@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { categoryIdSelect } from "../../store/slices";
+import { categoryIdSelect, loadMoreRequest } from "../../store/slices";
 import { catalogItemsRequest } from "../../store/slices";
 import Card from "../Card/Card";
 import Loader from "../Loader/Loader";
@@ -11,12 +11,16 @@ const url = process.env.REACT_APP_BASE_URL;
 
 
 const Catalog = ({children}) => {
-  const { catalogItems, catalogItemsLoading, catalogItemsError, search} = useSelector(state => state.catalogItems)
+  const { catalogItems, catalogItemsLoading, catalogItemsError, search, hasMore} = useSelector(state => state.catalogItems)
   const [categories, setCategories] = useState([]);
   const dispatch = useDispatch();
 
   const filterData = (items) => {
     return items.filter(i => i.title.toLowerCase().includes(search.toLowerCase()))
+  }
+
+  const handleLoadMore = () => {
+    dispatch(loadMoreRequest());
   }
 
   useEffect(() => {
@@ -68,7 +72,7 @@ const Catalog = ({children}) => {
               )}
           </div>
           <div className="text-center">
-            <button className="btn btn-outline-primary">Загрузить ещё</button>
+            {hasMore ? <button className="btn btn-outline-primary" onClick={handleLoadMore}>Загрузить ещё</button> : null}
           </div>
           </section>
         }
