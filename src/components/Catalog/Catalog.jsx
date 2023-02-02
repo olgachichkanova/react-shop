@@ -1,45 +1,41 @@
+import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { NavLink } from "react-router-dom";
+import { categoryIdSelect } from "../../store/slices";
 import Card from "../Card/Card";
 import "./Catalog.css"
 
-const links = [
-  {
-      "id": 12,
-      "title": "Мужская обувь"
-  },
-  {
-      "id": 13,
-      "title": "Женская обувь"
-  },
-  {
-      "id": 14,
-      "title": "Обувь унисекс"
-  },
-  {
-      "id": 15,
-      "title": "Детская обувь"
-  }
-]
+const url = process.env.REACT_APP_BASE_URL;
 
 const Catalog = ({items}) => {
+  const [categories, setCategories] = useState([]);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`${url}/categories`);
+        const data = await response.json();
+        setCategories(data);
+        console.log('loaded')
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, [])
+
+  const handleClick = (e, id) => {
+    e.preventDefault();
+    dispatch(categoryIdSelect(id))
+  }
+
     return (
         <section className="catalog">
             <h2 className="text-center">Каталог</h2>
             <ul className="catalog-categories nav justify-content-center">
-              <li className="nav-item">
-                <a className="nav-link active" href="#">Все</a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">Женская обувь</a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">Мужская обувь</a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">Обувь унисекс</a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">Детская обувь</a>
-              </li>
+              {categories.map(item => <NavLink className="nav-link" key={item.id} to={`/items/${item.id}`} onClick={(e) => handleClick(e, item.id)}>{item.title}</NavLink>)}
             </ul>
             <div className="row">
                 {items.map(item => 

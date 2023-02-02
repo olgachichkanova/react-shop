@@ -29,7 +29,8 @@ const catalogItemsSlice = createSlice({
     initialState: {
         catalogItems: [],
         catalogItemsLoading: false,
-        catalogItemsError: null
+        catalogItemsError: null,
+        categoryId: ''
     },
     reducers: {
         catalogItemsRequest(state, action) {
@@ -44,11 +45,16 @@ const catalogItemsSlice = createSlice({
         catalogItemsFailure(state, action) {
             state.catalogItemsLoading = false;
             state.catalogItemsError = action.payload;
+        },
+        categoryIdSelect(state, action) {
+            const id = action.payload;
+            state.categoryId = id;
         }
     }
 })
 
+
 export const { topSalesRequest, topSalesSuccess, topSalesFailure } = topSalesSlice.actions;
 export const topSalesSliceReducer = topSalesSlice.reducer;
-export const { catalogItemsRequest, catalogItemsSuccess, catalogItemsFailure } = catalogItemsSlice.actions;
+export const { catalogItemsRequest, catalogItemsSuccess, catalogItemsFailure, categoryIdSelect } = catalogItemsSlice.actions;
 export const catalogItemsSliceReducer = catalogItemsSlice.reducer;

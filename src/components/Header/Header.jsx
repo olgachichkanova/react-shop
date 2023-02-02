@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 import LinkItem from "../LinkItem/LinkItem";
 
 const links = [
-    {name: "Главная", to: "/"},
-    {name: "Каталог", to: "/catalog"},
-    {name: "О магазине", to: "/about"},
-    {name: "Контакты", to: "/contacts"}
+    {title: "Главная", to: "/"},
+    {title: "Каталог", to: "/catalog"},
+    {title: "О магазине", to: "/about"},
+    {title: "Контакты", to: "/contacts"}
 ]
 
 const Header = () => {
@@ -21,7 +21,7 @@ const Header = () => {
                     </Link>
                     <div className="collapse navbar-collapse" id="navbarMain">
                     <ul className="navbar-nav mr-auto">
-                        {links.map(item => <LinkItem key={item.name} item={item}/>)}
+                        {links.map(item => <LinkItem key={item.title} item={item}/>)}
                     </ul>
                     <div>
                         <div className="header-controls-pics">
