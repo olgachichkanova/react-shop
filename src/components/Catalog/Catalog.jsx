@@ -1,6 +1,25 @@
 import Card from "../Card/Card";
 import "./Catalog.css"
 
+const links = [
+  {
+      "id": 12,
+      "title": "Мужская обувь"
+  },
+  {
+      "id": 13,
+      "title": "Женская обувь"
+  },
+  {
+      "id": 14,
+      "title": "Обувь унисекс"
+  },
+  {
+      "id": 15,
+      "title": "Детская обувь"
+  }
+]
+
 const Catalog = ({items}) => {
     return (
         <section className="catalog">
