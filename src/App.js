@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import About from './components/About/About';
 import Banner from './components/Banner/Banner';
+import CardDetails from './components/CardDetails/CardDetails';
 import Catalog from './components/Catalog/Catalog';
 import Container from './components/Container/Container';
 import Contacts from './components/Contancts/Contacts';
@@ -22,6 +23,7 @@ function App() {
           <Route path='/catalog' element={<Catalog><Search /></Catalog>}/>
           <Route path='/about' element={<About />}/>
           <Route path='/contacts' element={<Contacts />} />
+          <Route path='/products/:id' element={<CardDetails />} />
           <Route path='*' element={<PageNotFound />} />
         </Routes>
       </Container>
