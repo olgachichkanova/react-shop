@@ -32,9 +32,9 @@ export const topSalesEpic = action$ => action$.pipe(
 export const catalogItemsEpic = (action$, state$) => action$.pipe(
     ofType(catalogItemsRequest.type, categoryIdSelect.type),
     switchMap(() => {
-            const categoryId = state$.value.catalogItems.categoryId;
-            const offset = state$.value.catalogItems.offset;
-            const endpoint = categoryId ? `${url}/items?categoryId=${categoryId}&offset=${offset}` : `${url}/items?offset=${offset}`;
+            const {categoryId, offset, search} = state$.value.catalogItems;
+            const query = search ? `&q=${search}` : '';
+            const endpoint = categoryId ? `${url}/items?categoryId=${categoryId}&offset=${offset}${query}` : `${url}/items?offset=${offset}${query}`;
             return ajax.getJSON(endpoint).pipe(
                 map(res => catalogItemsSuccess(res)),
                 catchError(error => of(catalogItemsFailure(error)))
@@ -47,9 +47,9 @@ export const loadMoreEpic = (action$, state$) =>
   action$.pipe(
     ofType(loadMoreRequest.type),
     switchMap(() => {
-        const categoryId = state$.value.catalogItems.categoryId;
-        const offset = state$.value.catalogItems.offset;
-        const endpoint = categoryId ? `${url}/items?categoryId=${categoryId}&offset=${offset}` : `${url}/items?offset=${offset}`;
+        const {categoryId, offset, search} = state$.value.catalogItems;
+        const query = search ? `&q=${search}` : '';
+        const endpoint = categoryId ? `${url}/items?categoryId=${categoryId}&offset=${offset}${query}` : `${url}/items?offset=${offset}${query}`;
       return ajax
         .getJSON(endpoint)
         .pipe(
