@@ -26,7 +26,6 @@ const createEndpoint = (state$) => {
   const more = offset !== 0 ? `&offset=${offset}` : '';
   const category = categoryId ? `categoryId=${categoryId}` : ''
   const endpoint = `${url}/items?${category}${more}${query}`
-  console.log(endpoint)
   return endpoint;
 }
 
