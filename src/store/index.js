@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { combineEpics, createEpicMiddleware } from "redux-observable";
-import { catalogItemsEpic, loadMoreEpic, topSalesEpic } from "./epics";
+import { catalogItemsEpic, changeSearchEpic, searchItemsEpic, loadMoreEpic, topSalesEpic } from "./epics";
 import { catalogItemsSliceReducer, topSalesSliceReducer } from "./slices";
 
 const epic = combineEpics(
     topSalesEpic,
     catalogItemsEpic,
+    changeSearchEpic,
+    searchItemsEpic,
     loadMoreEpic
 );
 

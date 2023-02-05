@@ -60,6 +60,19 @@ const catalogItemsSlice = createSlice({
             const search = action.payload;
             state.search = search;
         },
+        searchItemsRequest(state, action) {
+            state.catalogItemsLoading = true;
+            state.catalogItemsError = null;
+        },
+        searchItemsFailure(state, action) {
+            state.loading = false;
+            state.catalogItemsError = action.payload;
+        },
+        searchItemsSuccess(state, action) {
+            state.catalogItems = action.payload;
+            state.catalogItemsLoading = false;
+            state.catalogItemsError = null;
+        },
         loadMoreRequest(state, action) {
             state.loadMoreLoading = true
             state.offset += 6;
@@ -87,7 +100,10 @@ export const {
     catalogItemsSuccess, 
     catalogItemsFailure, 
     categoryIdSelect, 
-    changeSearchField, 
+    changeSearchField,
+    searchItemsRequest,
+    searchItemsSuccess,
+    searchItemsFailure, 
     loadMoreRequest, 
     loadMoreSuccess 
 } = catalogItemsSlice.actions;

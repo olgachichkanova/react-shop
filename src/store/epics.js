@@ -1,8 +1,22 @@
 import { ofType } from "redux-observable";
-import { map, switchMap, catchError } from "rxjs/operators";
+import { map, switchMap, catchError, filter, debounceTime } from "rxjs/operators";
 import { ajax } from "rxjs/ajax";
 import { of } from "rxjs";
-import { catalogItemsFailure, catalogItemsRequest, catalogItemsSuccess, categoryIdSelect, loadMoreRequest, loadMoreSuccess, topSalesFailure, topSalesRequest, topSalesSuccess } from "./slices";
+import { 
+  catalogItemsFailure, 
+  catalogItemsRequest, 
+  catalogItemsSuccess, 
+  categoryIdSelect, 
+  changeSearchField,
+  searchItemsRequest,
+  searchItemsSuccess,
+  searchItemsFailure,  
+  loadMoreRequest, 
+  loadMoreSuccess, 
+  topSalesFailure, 
+  topSalesRequest, 
+  topSalesSuccess 
+} from "./slices";
 
 const url = process.env.REACT_APP_BASE_URL;
 
@@ -44,3 +58,20 @@ export const loadMoreEpic = (action$, state$) =>
         );
     })
   );
+
+export const changeSearchEpic = action$ => action$.pipe(
+  ofType(changeSearchField.type),
+  map(o => o.payload.trim()),
+  filter(o => o !== ''),
+  debounceTime(2000),
+  map(o => searchItemsRequest(o))
+)
+
+export const searchItemsEpic = action$ => action$.pipe(
+  ofType(searchItemsRequest.type),
+  map(o => o.payload),
+  switchMap(o => ajax.getJSON(`${url}/items?q=${o}`).pipe(
+    map(o => searchItemsSuccess(o)),
+    catchError(e => searchItemsFailure(e))
+  ))
+)

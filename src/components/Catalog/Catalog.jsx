@@ -15,10 +15,6 @@ const Catalog = ({children}) => {
   const [categories, setCategories] = useState([]);
   const dispatch = useDispatch();
 
-  const filterData = (items) => {
-    return items.filter(i => i.title.toLowerCase().includes(search.toLowerCase()))
-  }
-
   const handleLoadMore = () => {
     dispatch(loadMoreRequest());
   }
@@ -63,7 +59,7 @@ const Catalog = ({children}) => {
             >{item.title}</NavLink>)}
           </ul>
           <div className="row">
-              {filterData(catalogItems).map(item => 
+              {catalogItems.map(item => 
                 <Card 
                   key={item.id}
                   item={item}
