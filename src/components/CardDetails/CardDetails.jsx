@@ -79,7 +79,7 @@ const CardDetails = () => {
                                     </span>
                                 </p>
                             </div>
-                            {isAvailable ? <button className="\btn btn-danger btn-block btn-lg" disabled={isSelected.length === 0}>В корзину</button> : null}
+                            {isAvailable ? <button className="btn btn-danger btn-block btn-lg" disabled={isSelected.length === 0}>В корзину</button> : null}
                         </div>
                     </div>
                 </section>
