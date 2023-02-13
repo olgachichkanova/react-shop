@@ -2,9 +2,9 @@ import "./Footer.css"
 import LinkItem from "../LinkItem/LinkItem";
 
 const links = [
-    {name: "Каталог", to: "/catalog"},
-    {name: "О магазине", to: "/about"},
-    {name: "Контакты", to: "/contacts"}
+    {title: "Каталог", to: "/catalog"},
+    {title: "О магазине", to: "/about"},
+    {title: "Контакты", to: "/contacts"}
 ]
 
 const Footer = () => {
@@ -15,7 +15,7 @@ const Footer = () => {
                 <section>
                     <h5>Информация</h5>
                     <ul className="nav flex-column">
-                        {links.map(item => <LinkItem key={item.name} item={item}/>)}
+                        {links.map(item => <LinkItem key={item.title} item={item}/>)}
                     </ul>
                 </section>
                 </div>
