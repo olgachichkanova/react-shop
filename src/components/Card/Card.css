@@ -1,0 +1,12 @@
+
+
+.img-fluid {
+    height: 350px;
+    object-fit: cover;
+}
+
+.card-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

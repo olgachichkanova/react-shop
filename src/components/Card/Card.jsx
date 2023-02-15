@@ -1,3 +1,4 @@
+import "./Card.css"
 import { Link } from "react-router-dom";
 
 const Card = ({item, catalog}) => {
@@ -7,9 +8,9 @@ const Card = ({item, catalog}) => {
                 <img src={item.images[0]}
                 className="card-img-top img-fluid" alt={item.title} />
                 <div className="card-body">
-                <p className="card-text">{item.title}</p>
-                <p className="card-text">{item.price} руб.</p>
-                <Link to={`/products/${item.id}`} className="btn btn-outline-primary">Заказать</Link>
+                    <p className="card-text">{item.title}</p>
+                    <p className="card-text">{item.price} руб.</p>
+                    <Link to={`/products/${item.id}`} className="btn btn-outline-primary">Заказать</Link>
                 </div>
             </div>
         </div>
