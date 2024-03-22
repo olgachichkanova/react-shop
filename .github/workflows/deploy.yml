@@ -33,9 +33,7 @@ jobs:
           npm install
 
       - name: Start Backend Locally
-        run: |
-          cd backend
-          npm run watch & echo "Backend server is running in the background."
+        run: cd backend && npm run watch & echo "Backend server is running in the background."
 
       # Wait for the backend to start before deploying
       - name: Wait for Backend to Start
