@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages with Local Backend
+name: Deploy to GitHub Pages
 
 on:
   push:
@@ -27,23 +27,8 @@ jobs:
       - name: Copy to Public
         run: cp -r dist public
 
-      - name: Set Up Backend
-        run: |
-          cd backend
-          npm install
-
-      - name: Start Backend Locally
-        run: cd backend && npm run watch & echo "Backend server is running in the background."
-
-      # Wait for the backend to start before deploying
-      - name: Wait for Backend to Start
-        run: sleep 10
-
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
-
-      - name: Stop Backend Server
-        run: kill $(jobs -p) || true
